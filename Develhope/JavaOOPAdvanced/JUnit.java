@@ -24,7 +24,7 @@ public class JUnit {
     void subtraction() {
         assertEquals(4,JUnit.subtraction(12,8),"Subtraction Test failed, Kindly debug the method");
         System.out.println("Subtraction test successful");
-        //Assertions.assertEquals();
+        
 
 
     }
