@@ -1,6 +1,6 @@
 package Develhope.JavaOOPAdvanced.Debugger;
 
-//package javaOopAdvanced.AdvancedIDEfeaturesDebugger;
+
 
 import org.junit.jupiter.api.Assertions;
 
@@ -27,7 +27,6 @@ public class Exercises {
     }
 
     private static int calculateFactorial(int number) {
-        //Fix this code
         int result = 1;
         for (int i = number; i >= 1; i -= 1) {
             result = result * i;
@@ -51,7 +50,6 @@ public class Exercises {
     }
 
     private static String reverseString(String input) {
-        //Fix this code
 
         String reversed = "";
         for (int i = input.length() - 1; i >= 0; i--) {
@@ -80,7 +78,6 @@ public class Exercises {
     }
 
     private static boolean isPositive(int num) {
-        //Fix this code
 
         return num >= 0?true:false;
     }
