@@ -1,10 +1,11 @@
 package ticket;
 
-import java.sql.Time;
+import lombok.Data;
+
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
+@Data
 public class Ticket {
     private int ticketID;
     private String ticketName;
@@ -16,76 +17,13 @@ public class Ticket {
     private String attachments;
     private Timestamp deadlineDate;
 
-    public Ticket(int ticketID, String ticketName, String description, String priorityLevel, Timestamp deadlineDate){}
-
-    public int getTicketID() {
-        return ticketID;
-    }
-
-    public void setTicketID(int ticketID){
+    public Ticket(int ticketID, String ticketName, String description, String priorityLevel, Timestamp deadlineDate){
         this.ticketID = ticketID;
-    }
-    public String getTicketName(){
-        return ticketName;
-    }
-    public void setTicketName(String ticketName){
         this.ticketName = ticketName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getPriorityLevel() {
-        return priorityLevel;
-    }
-
-    public void setPriorityLevel(String priorityLevel) {
         this.priorityLevel = priorityLevel;
-    }
-
-    public int getAgentAssigned() {
-        return agentAssigned;
-    }
-
-    public void setAgentAssigned(int agentAssigned) {
-        this.agentAssigned = agentAssigned;
-    }
-
-    public List<String> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<String> subTasks) {
-        this.subTasks = subTasks;
-    }
-
-    public String getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(String attachments) {
-        this.attachments = attachments;
-    }
-
-    public Timestamp getDeadlineDate() {
-        return deadlineDate;
-    }
-
-    public void setDeadlineDate(Timestamp deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
+
 }
 
