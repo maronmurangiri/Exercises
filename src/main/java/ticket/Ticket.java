@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Ticket {
     private int ticketID;
+    private String ticketName;
     private String description;
     private String tags;
     private String priorityLevel;
@@ -15,7 +16,7 @@ public class Ticket {
     private String attachments;
     private Timestamp deadlineDate;
 
-    public Ticket(){}
+    public Ticket(int ticketID, String ticketName, String description, String priorityLevel, Timestamp deadlineDate){}
 
     public int getTicketID() {
         return ticketID;
@@ -23,6 +24,12 @@ public class Ticket {
 
     public void setTicketID(int ticketID){
         this.ticketID = ticketID;
+    }
+    public String getTicketName(){
+        return ticketName;
+    }
+    public void setTicketName(String ticketName){
+        this.ticketName = ticketName;
     }
 
     public String getDescription() {
