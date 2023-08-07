@@ -123,24 +123,6 @@ public class User {
         this.password = password;
     }
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", password='" + password + '\'' +
-                ", position=" + position +
-                ", role=" + role +
-                ", createdBy=" + createdBy +
-                ", createdOn=" + createdOn +
-                ", updatedBy=" + updatedBy +
-                ", updatedOn=" + updatedOn +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
     public int getCreatedBy() {
         return createdBy;
     }
@@ -171,5 +153,22 @@ public class User {
 
     public void setUpdatedOn(Timestamp updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", position=" + position +
+                ", role=" + role +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", updatedBy=" + updatedBy +
+                ", updatedOn=" + updatedOn +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
