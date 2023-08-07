@@ -124,6 +124,23 @@ public class User {
     }
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", position=" + position +
+                ", role=" + role +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", updatedBy=" + updatedBy +
+                ", updatedOn=" + updatedOn +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public int getCreatedBy() {
         return createdBy;
     }
