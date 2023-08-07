@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import positions.entity.Position;
+import role.RoleCRUIDOperation;
 import role.entity.Role;
 
 public class UserAuthCRUDOperations {
@@ -62,10 +63,22 @@ public class UserAuthCRUDOperations {
             for (int userID : users){
                 return userID;
             }
-
         }
         return  null;
     }
+
+    public User findUserById(int id){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        User userFound = entityManager.find(User.class,id);
+
+        if (userFound != null) {
+            return userFound;
+        }
+        return  null;
+    }
+
 
     public User findUSerByRoleID(Role roleId){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -95,10 +108,18 @@ public class UserAuthCRUDOperations {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        entityManager.remove(userToDelete);
+        if (userToDelete != null) {
+            entityManager.remove(entityManager.contains(userToDelete) ? userToDelete : entityManager.merge(userToDelete));
+            entityManager.getTransaction().commit();
+            System.err.println("Deleted successfully");
+        } else {
+            System.err.println("User not found");
+        }
+
         entityManager.getTransaction().commit();
         entityManager.close();
 
 
     }
+
 }
