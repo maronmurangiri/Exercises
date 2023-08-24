@@ -53,19 +53,20 @@ public class UserAuthCRUDOperations {
     }
 
 
-    public Integer findUserByEmail(String email){
+    public User findUserByEmail(String email){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Query query = entityManager.createQuery("SELECT u.id FROM User u WHERE u.email = :email");
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
         query.setParameter("email",email);
 
-        List<Integer> users = query.getResultList();
+        List<User> users = query.getResultList();
         if (!users.isEmpty()) {
-            for (int userID : users){
-                return userID;
+            for (User user : users){
+                return user;
             }
         }
         return  null;
     }
+
 
     public User findUserById(int id){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
