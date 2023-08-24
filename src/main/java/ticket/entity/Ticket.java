@@ -1,10 +1,11 @@
 package ticket.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "tickets")
 public class Ticket {
@@ -65,119 +66,6 @@ public class Ticket {
         this.priorityLevel = priorityLevel;
         this.deadlineDate = deadlineDate;
     }
-
-    public int getTicketID() {
-        return ticketID;
-    }
-
-    public void setTicketID(int ticketID) {
-        this.ticketID = ticketID;
-    }
-
-    public String getTicketName() {
-        return ticketName;
-    }
-
-    public void setTicketName(String ticketName) {
-        this.ticketName = ticketName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getStatusID() {
-        return statusID;
-    }
-
-    public void setStatusID(int statusID) {
-        this.statusID = statusID;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getPriorityLevel() {
-        return priorityLevel;
-    }
-
-    public void setPriorityLevel(String priorityLevel) {
-        this.priorityLevel = priorityLevel;
-    }
-
-    public int getAgentAssigned() {
-        return agentAssigned;
-    }
-
-    public void setAgentAssigned(int agentAssigned) {
-        this.agentAssigned = agentAssigned;
-    }
-
-    public List<String> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<String> subTasks) {
-        this.subTasks = subTasks;
-    }
-
-    public String getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(String attachments) {
-        this.attachments = attachments;
-    }
-
-    public Timestamp getDeadlineDate() {
-        return deadlineDate;
-    }
-
-    public void setDeadlineDate(Timestamp deadlineDate) {
-        this.deadlineDate = deadlineDate;
-    }
-
-    public Timestamp getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Timestamp createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public int getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(int createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public int getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(int updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Timestamp getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Timestamp updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
     @Override
     public String toString() {
         return "Ticket{" +

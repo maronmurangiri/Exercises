@@ -1,6 +1,9 @@
 package ticket.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "ticket_status")
 public class TicketStatus {
