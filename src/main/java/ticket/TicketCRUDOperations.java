@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import org.hibernate.Session;
 import ticket.entity.Ticket;
 
 import java.sql.Time;
@@ -15,7 +16,7 @@ public class TicketCRUDOperations {
     //Creating entity manager factory object
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("DBCONNECT");
 
-    public void insertTicket(String ticketName, String description, String priorityLevel, Timestamp deadlineDate){
+    public void insertTicket(String ticketName, String description, int statusID, String priorityLevel, Timestamp deadlineDate){
         //obtaining entity manager from the entity manager factory
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -26,6 +27,7 @@ public class TicketCRUDOperations {
             Ticket ticket = new Ticket();
             ticket.setTicketName(ticketName);
             ticket.setDescription(description);
+            ticket.setStatusID(statusID);
             ticket.setPriorityLevel(priorityLevel);
             ticket.setDeadlineDate(deadlineDate);
 
@@ -104,15 +106,32 @@ public class TicketCRUDOperations {
     public void updateTicketDeadlineDate(int ticketID, Timestamp deadlineDate){
         Ticket ticketToUpdate = findTicketById(ticketID);
 
+
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        ticketToUpdate.setDeadlineDate(deadlineDate);
 
-        //persist the ticket instance
-//        entityManager.persist(ticketToUpdate);
+//        entityManager.getTransaction().begin();
+//        ticketToUpdate.setDeadlineDate(deadlineDate);
+//
+//        entityManager.getTransaction().commit();
+//        entityManager.close();
+///**new code
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+        try{
 
-        entityManager.getTransaction().commit();
+            ticketToUpdate.setDeadlineDate(deadlineDate);
+
+            //persist the ticket instance
+            entityManager.persist(ticketToUpdate);
+
+            //commit transaction
+            entityTransaction.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         entityManager.close();
+
     }
 
     public void deleteTicket(int ticketID){
@@ -126,7 +145,7 @@ public class TicketCRUDOperations {
             entityManager.getTransaction().commit();
             System.err.println("Deleted successfully");
         } else {
-            System.err.println("User not found");
+            System.err.println("Ticket not found");
         }
 
         entityManager.getTransaction().commit();

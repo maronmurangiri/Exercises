@@ -19,6 +19,9 @@ public class Ticket {
     @Column(name = "description")
     private String description;
 
+    @Column(name= "status_id")
+    private int statusID;
+
     @Column(name = "tags")
     private String tags;
 
@@ -55,8 +58,8 @@ public class Ticket {
 
     }
 
-    public Ticket(String ticketName, String description, String priorityLevel, Timestamp deadlineDate){
-//        this.ticketID = ticketID;
+    public Ticket(String ticketName, String description, int statusID, String priorityLevel, Timestamp deadlineDate){
+        this.statusID = statusID;
         this.ticketName = ticketName;
         this.description = description;
         this.priorityLevel = priorityLevel;
@@ -85,6 +88,14 @@ public class Ticket {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatusID() {
+        return statusID;
+    }
+
+    public void setStatusID(int statusID) {
+        this.statusID = statusID;
     }
 
     public String getTags() {
@@ -173,6 +184,7 @@ public class Ticket {
                 "ticketID=" + ticketID +
                 ", ticketName='" + ticketName + '\'' +
                 ", description='" + description + '\'' +
+                ", statusID='" + statusID + '\'' +
                 ", tags='" + tags + '\'' +
                 ", priorityLevel='" + priorityLevel + '\'' +
                 ", agentAssigned=" + agentAssigned +
