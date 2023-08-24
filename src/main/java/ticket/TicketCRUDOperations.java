@@ -7,6 +7,7 @@ import jakarta.persistence.Persistence;
 
 import ticket.entity.Ticket;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class TicketCRUDOperations {
 
         entityManager.close();
     }
+
     public Ticket findTicketById(int id){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -99,10 +101,15 @@ public class TicketCRUDOperations {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    public void updateTicketDeadlineDate(Ticket ticketToUpdate, Timestamp deadlineDate){
+    public void updateTicketDeadlineDate(int ticketID, Timestamp deadlineDate){
+        Ticket ticketToUpdate = findTicketById(ticketID);
+
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         ticketToUpdate.setDeadlineDate(deadlineDate);
+
+        //persist the ticket instance
+//        entityManager.persist(ticketToUpdate);
 
         entityManager.getTransaction().commit();
         entityManager.close();

@@ -51,7 +51,7 @@ CREATE TABLE tickets (
     ticket_id INT auto_increment PRIMARY KEY,
     ticket_name VARCHAR(255),
     description VARCHAR(2555),
-    tag VARCHAR(2555),
+    tags VARCHAR(2555),
     priority_level VARCHAR(255),
     user_id INT,
     subtasks VARCHAR(1000),

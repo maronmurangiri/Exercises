@@ -36,17 +36,17 @@ public class Ticket {
     @Column(name = "attachments")
     private String attachments;
 
-    @Column(name = "tags")
+    @Column(name = "deadline_date")
     private Timestamp deadlineDate;
 
     @Column(name = "created_on")
     private Timestamp createdOn;
 
     @Column(name = "created_by")
-    private Timestamp createdBy;
+    private int createdBy;
 
     @Column(name="updated_by")
-    private Integer updatedBy;
+    private int updatedBy;
 
     @Column(name="updated_on")
     private Timestamp updatedOn;
@@ -55,8 +55,8 @@ public class Ticket {
 
     }
 
-    public Ticket(int ticketID, String ticketName, String description, String priorityLevel, Timestamp deadlineDate){
-        this.ticketID = ticketID;
+    public Ticket(String ticketName, String description, String priorityLevel, Timestamp deadlineDate){
+//        this.ticketID = ticketID;
         this.ticketName = ticketName;
         this.description = description;
         this.priorityLevel = priorityLevel;
@@ -143,19 +143,19 @@ public class Ticket {
         this.createdOn = createdOn;
     }
 
-    public Timestamp getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Timestamp createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Integer getUpdatedBy() {
+    public int getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
+    public void setUpdatedBy(int updatedBy) {
         this.updatedBy = updatedBy;
     }
 
