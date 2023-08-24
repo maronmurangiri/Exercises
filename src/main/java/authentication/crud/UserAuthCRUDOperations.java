@@ -10,7 +10,7 @@ import jakarta.persistence.Query;
 import java.sql.Timestamp;
 import java.util.List;
 
-import positions.entity.Position;
+import Positions.Entity.Position;
 import role.RoleCRUIDOperation;
 import role.entity.Role;
 
