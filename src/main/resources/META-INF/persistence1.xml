@@ -4,16 +4,15 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="DBCONNECT" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="Agent" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>ticket.entity.Ticket</class>
 
         <!-- Database connection settings -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ticketing_system"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="ohmyImusingsqlnow@254"/>
+            <property name="javax.persistence.jdbc.password" value="Tamir001@"/>
 
             <!-- Hibernate settings -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
@@ -22,8 +21,10 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- "update" for development, "validate" for production -->
 
             <!-- Specify the packages where your entity classes are located -->
-            <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.package_names" value="authentication, ticketService"/>
+            <!-- Specify the entity classes -->
+            <property name="hibernate.archive.autodetect" value="class"/>
+            <property name="hibernate.package_names" value="agent"/>
+            <!-- Add more classes here as needed -->
         </properties>
     </persistence-unit>
 </persistence>
