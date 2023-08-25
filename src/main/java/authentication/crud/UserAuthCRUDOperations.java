@@ -1,4 +1,4 @@
-package authentication;
+package authentication.crud;
 
 import authentication.entity.User;
 
@@ -10,8 +10,7 @@ import jakarta.persistence.Query;
 import java.sql.Timestamp;
 import java.util.List;
 
-import Positions.Entity.Position;
-import role.RoleCRUIDOperation;
+import positions.entity.Position;
 import role.entity.Role;
 
 public class UserAuthCRUDOperations {
