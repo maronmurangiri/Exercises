@@ -10,7 +10,14 @@ public class DatabaseConnectionManager {
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ticketing_system","root","Tamir001@");
+                connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ticketing_system","develhope","Welcome@123");
+            if (connection !=null){
+                System.out.println("successfull");
+            }
+            else {
+                System.out.println("not successful" +
+                        "");
+            }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

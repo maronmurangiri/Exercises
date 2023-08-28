@@ -1,17 +1,19 @@
-package Positions.Entity;
+package positions.crud;
 
-import Departments.Department;
+import department.entity.Department;
+import positions.entity.Position;
+import positions.account.service.PositionAccount;
+
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
-import static jakarta.persistence.Persistence.createEntityManagerFactory;
+public class PositionCRUIDOperation {
 
-public class PositionCRUDOperations {
-    //Creating entity manager factory object
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("DbConnect");
 
-    public void insertPosition(String positionName, int createdBy, Timestamp createdOn, Department department) {
+    public void insertPosition(String positionName, int createdBy, Timestamp createdOn, Department department){
 
         //obtaining entity manager from the entity manager factory
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -19,23 +21,26 @@ public class PositionCRUDOperations {
         //create entity transaction object and begin transaction
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        try {
+        try{
             Position position = new Position();
             position.setPositionName(positionName);
-            position.setCreatedOn(createdOn);
             position.setCreatedBy(createdBy);
+            position.setCreatedOn(createdOn);
             position.setDepartment(department);
 
             //persist the user instance
             entityManager.persist(position);
-            //  commit transaction;
+
+            //commit transaction
             entityTransaction.commit();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
+
         entityManager.close();
 
     }
+
     public Position findPosition(String positionName){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createQuery("SELECT p FROM Position p WHERE p.positionName = :positionName");
@@ -54,11 +59,5 @@ public class PositionCRUDOperations {
         }
         return  null;
     }
-    public static void main (String[] args){
-        /**LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));**/
-        PositionCRUDOperations PositionCRUDOperation = new PositionCRUDOperations();
-        System.out.println(PositionCRUDOperation.findPosition("Support"));
-    }
+
 }

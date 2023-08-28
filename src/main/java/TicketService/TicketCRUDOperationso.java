@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @SuppressWarnings("CallToPrintStackTrace")
-public class TicketCRUDOperations {
+public class TicketCRUDOperationso {
     //Creating entity manager factory object
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("agent");
 
