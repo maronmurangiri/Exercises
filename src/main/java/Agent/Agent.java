@@ -1,6 +1,7 @@
 package Agent;
 
-import user.User;
+
+import authentication.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;

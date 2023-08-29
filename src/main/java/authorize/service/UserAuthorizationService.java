@@ -36,20 +36,21 @@ public class UserAuthorizationService {
         }
     }
 
-    public String generateToken(String subject, Role roles){
+    public String generateToken(String subject, String roleName,String email,Integer userId){
         Claims claims = Jwts.claims().setSubject(subject);
-        try {
-            String roleJson = new ObjectMapper().writeValueAsString(roles);
-            claims.put("roles",roleJson );
+
+
+            //String roleJson = new ObjectMapper().writeValueAsString(roles);
+            claims.put("roles",roleName );
+            claims.put("email", email);
+            claims.put("userId",userId);
+
             String token = Jwts.builder()
                     .setClaims(claims)
                     .signWith(keyPair.getPrivate(), SignatureAlgorithm.RS256)
                     .compact();
 
             return token;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
 
 
     }

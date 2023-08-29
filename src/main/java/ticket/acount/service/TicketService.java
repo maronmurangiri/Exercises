@@ -1,7 +1,11 @@
-package authentication.user;
+package ticket.acount.service;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 //import authentication.UserAuthCRUDOperations;
@@ -14,20 +18,23 @@ import role.entity.Role;
 import role.crud.RoleCRUIDOperation;
 import positions.entity.Position;
 import positions.crud.PositionCRUIDOperation;
+import ticket.crud.TicketCRUDOperations;
+import ticket.entity.Ticket;
+import ticket.entity.TicketStatus;
 
 import java.time.*;
 
 
-public class    UserAccount {
+public class TicketService {
 
-    //user entity CRUID operations class instance
+    //user entity CRUD operations class instance
     UserAuthCRUDOperations userAuthCRUDOperations = new UserAuthCRUDOperations();
 
-    //role entity CRUID operations class instance
+    //role entity CRUD operations class instance
     RoleCRUIDOperation roleCRUIDOperation = new RoleCRUIDOperation();
 
-    //positions entity CRUID operation class instance
-    PositionCRUIDOperation positionCRUIDOperation = new PositionCRUIDOperation();
+    //ticket entity CRUD operation class instance
+    TicketCRUDOperations ticketCRUDOperations = new TicketCRUDOperations();
 
     UserController userController = new UserController();
 
@@ -35,105 +42,112 @@ public class    UserAccount {
     LocalDateTime localDateTime = LocalDateTime.now();
     DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+
+
+
     Scanner scanner = new Scanner(System.in);
 
     String admin = "admin";
 
-    public void createAccount() {
+    public void createTicket(String userEmail) {
         //userData = new ArrayList<>();
         boolean operate = true;
         while (operate) {
 
-        System.out.println("Enter user first name or CANCEL to quit: ");
-        String firstNameInput = scanner.nextLine();
+            System.out.println("Enter the ticket name or CANCEL to quit: ");
+            String ticketNameInput = scanner.nextLine();
 
-        if (firstNameInput.equalsIgnoreCase("cancel")){
-            operate=false;
-            break;
-        }
-
-        System.out.println("Enter user Surname: ");
-        String surnameInput = scanner.nextLine();
-
-        System.out.println("Enter user department: ");
-        String departmentInput = scanner.nextLine();
-
-        System.out.println("Enter the role of the user in the system: ");
-        String userRoleInTheSystemInput = scanner.nextLine();
-
-        System.out.println("Enter user work Position: ");
-        String userWorkPositionInput = scanner.nextLine();
-
-        System.out.println("Enter user Work Email: ");
-        String workEmailInput = scanner.nextLine();
-
-            System.out.println("Enter your password: ");
-            String passwordInput = scanner.nextLine();
-
-            if (isPasswordValid(passwordInput)) {
-
-                System.out.println("Confirm password: ");
-                String confirmPasswordInput = scanner.nextLine();
-               // User newUserAccount = new User(firstName,surname,workEmail,password,department,userRoleInTheSystem,userWorkPosition,);
-
-                //to check if user exist
-                User userFound = userAuthCRUDOperations.findUserByEmail(workEmailInput);
-
-
-                if (userFound != null) {
-                    System.err.println("The account exist");
-                    operate= true;
-                } else {
-                    //obtain user position ID
-                    Position userPositionId = positionCRUIDOperation.findPosition(userWorkPositionInput);
-                    System.out.println("positionID:"+userPositionId);
-                    //obtain user role ID
-                    Role roleIdInDB = roleCRUIDOperation.findRoleBY(userRoleInTheSystemInput);
-
-                    System.out.println(roleIdInDB);
-                    //obtain the ID of account creator who is the administrator
-                    if ( admin.equalsIgnoreCase("admin")|| admin.equalsIgnoreCase("administrator")) {
-                        //obtain role ID of the admin
-                        admin = "admin";
-                        Role adminRoleId = roleCRUIDOperation.findRoleBY(admin);
-
-                        User createdBy = userAuthCRUDOperations.findUSerByRoleID(adminRoleId);
-                          System.out.println(createdBy);
-                        //current Date time
-                        Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));
-
-
-
-                        if (passwordInput.equals(confirmPasswordInput)) {
-
-                            //insert user to the database
-                            userAuthCRUDOperations.insertUser(firstNameInput, surnameInput,workEmailInput, passwordInput, userPositionId,roleIdInDB,createdBy.getCreatedBy(),createdOn);
-                            System.err.println("Account successfully created\n");
-                            System.out.println("Enter the user details to create another account or CANCEL to quit");
-                        } else {
-                            System.err.println("Passwords do not match");
-                            System.out.println("Retry again or enter CANCEL to quit: ");
-
-                            if (confirmPasswordInput.equalsIgnoreCase("cancel")){
-                                operate=false;
-                                break;
-                            }
-                        }
-                    }
-
-
-                }
-
-
-            } else {
-                System.err.println("Kindly enter a valid password with: ");
-                System.err.println("atleast an uppercase,lowercase,digit, special character and of length greater than 8");
+            if (ticketNameInput.equalsIgnoreCase("cancel")){
+                operate=false;
+                break;
             }
+
+            System.out.println("Enter the ticket description: ");
+            String ticketDescriptionInput = scanner.nextLine();
+
+            System.out.println("Enter the ticket priority level: ");
+            String ticketPriorityLevelInput = scanner.nextLine();
+
+            System.out.println("Enter the ticket deadline date in this format (yyyy-MM-dd HH:mm) : ");
+            String ticketDeadlineDate = scanner.nextLine();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+
+            try {
+                Date parsedDeadlineDate = dateFormat.parse(ticketDeadlineDate);
+                Timestamp timestampedDeadlineDate = new Timestamp(parsedDeadlineDate.getTime());
+
+            //Timestamp timestampedDeadlineDate = new Timestamp(parsedDeadlineDate.getTime());
+
+            //obtain the ID of ticket creator
+            User createdBy = userAuthCRUDOperations.findUserByEmail(userEmail);
+            System.out.println(createdBy);
+
+            //current Date time
+            Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));
+
+            //open status ID
+            TicketStatus ticketStatus = ticketCRUDOperations.findTicketStatusByName("open");
+
+
+                        //insert ticket to the database
+            if (ticketCRUDOperations.insertTicket(ticketNameInput,ticketDescriptionInput,ticketStatus,ticketPriorityLevelInput,createdOn,createdBy, timestampedDeadlineDate )){
+            System.err.println("Ticket successfully created\n");
+            System.out.println("Enter the ticket details to create another ticket or CANCEL to quit");
+            } else {
+                System.err.println("Ticket creation failed......");
+                System.out.println("Retry again or enter CANCEL to quit: ");
+
+            }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
 
     }
 
+    public void displayTickets(){
+        int ticketCount=0;
+        List<Ticket> tickets = ticketCRUDOperations.findTicketsCreated();
+        System.out.print("tickets ID\t tickets name\ttickets status\ttickets priority");
+        System.out.println();
+        for(Ticket ticket:tickets){
+            ticketCount++;
+            System.out.print(ticket.getTicketID()+"\t"+ticket.getTicketName()+"\t"+ticket.getTicketStatus()+"\t"+ticket.getPriorityLevel());
+            System.out.println();
+            System.out.println("total tickets created: "+ticketCount+" tickets");
+        }
+
+
+    }
+    public void AssignTicketsToAgent(){
+        Boolean operate = true;
+        while (operate){
+            System.out.println("CREATED TICKETS");
+            displayTickets();
+            System.out.println("Fill in the ticket ID of the ticket to assign or CANCEL to quit: ");
+            String ticketToAssignIdInput = scanner.nextLine();
+
+
+            System.out.println("fill in the email of the agent to assign this ticket:");
+            String agentEmailInput = scanner.nextLine();
+                if (ticketToAssignIdInput.equalsIgnoreCase("cancel")){
+                    operate=false;
+                }
+            //ticket to update
+            Ticket ticketToAssign = ticketCRUDOperations.findTicketById(Integer.parseInt(ticketToAssignIdInput));
+
+            //user agent to assign ticket
+            User agentToAssign = userAuthCRUDOperations.findUserByEmail(agentEmailInput);
+
+            //update agent
+            ticketCRUDOperations.updateTicketAgentAssigned(ticketToAssign,agentToAssign);
+            System.err.println("ticket successfully assigned to"+agentToAssign);
+        }
+    }
     public void login() throws JsonProcessingException {
 
         System.out.println("Fill in your details to login or enter 'CANCEL' to quit");
@@ -280,8 +294,10 @@ public class    UserAccount {
     }
 
     public static void main(String[] args) throws JsonProcessingException {
-        UserAccount userAccount = new UserAccount();
+        //authentication.user.UserAccount userAccount = new authentication.user.UserAccount();
         //userAccount.createAccount();
-        userAccount.login();
+        //userAccount.login();
+        TicketService ticketService = new TicketService();
+        ticketService.createTicket("murangirimaron@gmail.com");
     }
 }

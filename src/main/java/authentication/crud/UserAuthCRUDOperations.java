@@ -1,4 +1,4 @@
-package authentication;
+package authentication.crud;
 
 import authentication.entity.User;
 
@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import positions.entity.Position;
-import role.RoleCRUIDOperation;
 import role.entity.Role;
 
 public class UserAuthCRUDOperations {
