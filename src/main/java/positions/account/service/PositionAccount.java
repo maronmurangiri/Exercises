@@ -59,7 +59,6 @@ public class PositionAccount {
                 } else {
                     //obtain user position ID
                     Department department = departmentCRUDOperation.findDepartment(departmentNameInput);
-                    System.out.println("positionID:"+department.getDepartmentId());
 
                     //obtain the ID of Position creator who is the administrator
                     if ( admin.equalsIgnoreCase("admin")|| admin.equalsIgnoreCase("administrator")) {
@@ -68,7 +67,7 @@ public class PositionAccount {
                         Role adminRoleId = roleCRUIDOperation.findRoleBY(admin);
 
                         User createdBy = userAuthCRUDOperations.findUSerByRoleID(adminRoleId);
-                        System.out.println(createdBy);
+
                         //current Date time
                         Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));
 

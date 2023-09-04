@@ -86,11 +86,10 @@ public class    UserAccount {
                 } else {
                     //obtain user position ID
                     Position userPositionId = positionCRUIDOperation.findPosition(userWorkPositionInput);
-                    System.out.println("positionID:"+userPositionId);
+
                     //obtain user role ID
                     Role roleIdInDB = roleCRUIDOperation.findRoleBY(userRoleInTheSystemInput);
 
-                    System.out.println(roleIdInDB);
                     //obtain the ID of account creator who is the administrator
                     if ( admin.equalsIgnoreCase("admin")|| admin.equalsIgnoreCase("administrator")) {
                         //obtain role ID of the admin
@@ -98,7 +97,7 @@ public class    UserAccount {
                         Role adminRoleId = roleCRUIDOperation.findRoleBY(admin);
 
                         User createdBy = userAuthCRUDOperations.findUSerByRoleID(adminRoleId);
-                          System.out.println(createdBy);
+
                         //current Date time
                         Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));
 

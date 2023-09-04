@@ -44,6 +44,9 @@ public class DepartmentAccount {
             if (departmentNameInput.equalsIgnoreCase("cancel")) {
                 operate = false;
                 break;
+            } else if (departmentNameInput.isBlank()) {
+                System.out.println("Enter a valid department name: ");
+                continue;
             }
 
             System.out.println("Enter the department description: ");
@@ -71,7 +74,7 @@ public class DepartmentAccount {
                     Role adminRoleId = roleCRUIDOperation.findRoleBY(admin);
 
                     User createdBy = userAuthCRUDOperations.findUSerByRoleID(adminRoleId);
-                    System.out.println(createdBy);
+
 
                     //current Date time
                     Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));
@@ -92,10 +95,6 @@ public class DepartmentAccount {
         }
     }
 
-    public static void main(String[] args){
-        DepartmentAccount departmentAccount = new DepartmentAccount();
-        departmentAccount.createDepartment();
-    }
 }
 
 

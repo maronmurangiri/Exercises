@@ -55,8 +55,8 @@ public class UserController {
          userId = claims.getBody().get("userId", Integer.class);
 
             if (claimsRole.equalsIgnoreCase("admin")) {
-                System.out.println(" Logged in as admin : \n You can create account, positions and departments");
-                System.out.println(userEmail);
+                System.out.println(" Logged in as admin : \n You can create account, positions and departments\n");
+
 
                 Scanner scanner = new Scanner(System.in);
                 String choice;
@@ -68,8 +68,10 @@ public class UserController {
                     System.out.println("2 --> Create a position");
                     System.out.println("3 --> Create a department");
                     System.out.println("4 --> Create a role");
-                    System.out.println("5 --> Display tickets");
+                    System.out.println("5 --> Display all tickets created");
                     System.out.println("6 --> Assign ticket to agent");
+                    System.out.println("7 --> Display resolved tickets");
+                    System.out.println("8 --> Update tickets status of ticket resolved by you");
 
 
                     choice = scanner.nextLine().toLowerCase();
@@ -101,7 +103,7 @@ public class UserController {
                             break;
 
                         case "5":
-                            System.out.println("TICKETS CREATED");
+                            System.out.println("ALL TICKETS CREATED");
                             TicketService ticketService = new TicketService();
                             ticketService.displayTickets();
                             break;
@@ -111,12 +113,23 @@ public class UserController {
                             TicketService ticketService1 = new TicketService();
                             ticketService1.AssignTicketsToAgent();
                             break;
+                        case "7":
+                            System.out.println("Resolved tickets");
+                            TicketService ticketService2 = new TicketService();
+                            ticketService2.displayResolvedTickets();
+                            break;
+
+                        case "8":
+                            System.out.println("UPDATE STATUS OF TICKET YOU RESOLVED\n Enter the details below:");
+                            AgentService agentService = new AgentService();
+                            agentService.updateResolvedTickets();
+                            break;
 
                         case "cancel":
                             System.out.println("Quiting......");
 
                             operate=false;
-                            //break;
+                            break;
 
                         default:
                             System.out.println("Invalid choice. Please select a valid option or type 'cancel' to exit.");
@@ -159,11 +172,11 @@ public class UserController {
 
                         case "2":
                             System.out.println("ALL TICKETS ASSIGNED");
-                            AgentService agentService1 = new AgentService();
-                            agentService1.readTicketsAssignedToAgent(userId);
+                            //AgentService agentService1 = new AgentService();
+                            agentService.readTicketsAssignedToAgent(userId);
                             System.out.println("UPDATE STATUS OF RESOLVED TICKET\n Enter the details below:");
-                            AgentService agentService3 = new AgentService();
-                            agentService3.updateResolvedTickets();
+                            //AgentService agentService3 = new AgentService();
+                            agentService.updateResolvedTickets();
                             break;
 
                         case "3":
@@ -204,7 +217,7 @@ public class UserController {
                 do {
                     System.out.println("WELCOME TO USER MENU\n Choose what to carry on or CANCEL to quit");
                     System.out.println("1 --> Create a ticket");
-                    System.out.println("3 --> view ticket");
+                    System.out.println("2 --> view ticket");
 
 
                     choice = scanner.nextLine().toLowerCase();

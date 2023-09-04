@@ -94,14 +94,36 @@ public class TicketCRUDOperations {
         return tickets;
     }
 
-    public List<Ticket> findTicketsCreated(){
+    public List<Ticket> findTicketsCreated() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t");
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t ");
 
         List<Ticket> tickets = query.getResultList();
 
         return tickets;
+    }
+
+    public List<Ticket> findTicketsCreatedByStatus(String ticketStatusName){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        TicketStatus ticketStatus = findTicketStatusByName(ticketStatusName);
+        if (ticketStatusName.equalsIgnoreCase("open")) {
+
+            Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.ticketStatus= :ticketStatus");
+            query.setParameter("ticketStatus",ticketStatus);
+            List<Ticket> tickets = query.getResultList();
+
+            return tickets;
+        } else if (ticketStatusName.equalsIgnoreCase("resolved")) {
+             ticketStatus = findTicketStatusByName(ticketStatusName);
+            Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.ticketStatus = :ticketStatus");
+            query.setParameter("ticketStatus",ticketStatus);
+            List<Ticket> tickets = query.getResultList();
+
+            return tickets;
+        }
+        return null;
     }
 
     public List<Ticket> findTicketByAgentAssigned(User agentAssignedId){
@@ -114,12 +136,12 @@ public class TicketCRUDOperations {
 
         return tickets;
     }
-    public List<Ticket> findTicketByAgentAssignedAndResolvedStatus(User agentAssigned,TicketStatus statusId){
+    public List<Ticket> findTicketByAgentAssignedAndResolvedStatus(User agentAssigned,TicketStatus ticketStatus){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.agentAssigned = :agentAssigned AND t.statusId = :statusId");
+        Query query = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.agentAssigned = :agentAssigned AND t.ticketStatus = :ticketStatus");
         query.setParameter("agentAssigned",agentAssigned);
-        query.setParameter("statusId",statusId);
+        query.setParameter("ticketStatus",ticketStatus);
 
         List<Ticket> tickets = query.getResultList();
 

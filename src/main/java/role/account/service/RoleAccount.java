@@ -61,7 +61,7 @@ public class RoleAccount {
                     Role adminRoleId = roleCRUIDOperation.findRoleBY(admin);
 
                     User createdBy = userAuthCRUDOperations.findUSerByRoleID(adminRoleId);
-                    System.out.println(createdBy);
+
 
                     //current Date time
                     Timestamp createdOn = Timestamp.valueOf(localDateTime.format(formatDate));

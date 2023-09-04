@@ -37,7 +37,6 @@ UserAuthCRUDOperations userAuthCRUDOperations = new UserAuthCRUDOperations();
         System.out.println("fill in the ID of the resolved ticket");
         Scanner scanner = new Scanner(System.in);
         String resolvedTicketIdInput = scanner.nextLine();
-        scanner.nextLine();
 
         //resolved ticket
         Ticket resolvedTicket = ticketCRUDOperations.findTicketById(Integer.parseInt(resolvedTicketIdInput));
@@ -51,6 +50,7 @@ UserAuthCRUDOperations userAuthCRUDOperations = new UserAuthCRUDOperations();
         //resolved ticket status
         TicketCRUDOperations ticketCRUDOperations = new TicketCRUDOperations();
         TicketStatus ticketStatus = ticketCRUDOperations.findTicketStatusByName("resolved");
+
 
         System.out.println("TICKET RESOLVED BY AGENT");
         List<Ticket> tickets = ticketCRUDOperations.findTicketByAgentAssignedAndResolvedStatus(agentAssigned,ticketStatus);;

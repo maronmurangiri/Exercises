@@ -109,27 +109,63 @@ public class TicketService {
 
     }
 
-    public void displayTickets(){
-        int ticketCount=0;
+    public void displayTickets() {
+        int ticketCount = 0;
         List<Ticket> tickets = ticketCRUDOperations.findTicketsCreated();
         System.out.print("tickets ID\t tickets name\ttickets status\ttickets priority");
         System.out.println();
-        for(Ticket ticket:tickets){
+        for (Ticket ticket : tickets) {
             ticketCount++;
-            System.out.print(ticket.getTicketID()+"\t"+ticket.getTicketName()+"\t"+ticket.getTicketStatus()+"\t"+ticket.getPriorityLevel());
+            System.out.print(ticket.getTicketID() + "\t" + ticket.getTicketName() + "\t" + ticket.getTicketStatus() + "\t" + ticket.getPriorityLevel() + "\n");
             System.out.println();
-            System.out.println("total tickets created: "+ticketCount+" tickets");
         }
+        System.out.println("There are : " + ticketCount + " totals tickets created");
+        System.out.println();
+    }
+
+    public void displayOpenTickets() {
+        int ticketCount = 0;
+        String ticketStatusName = "open";
+        List<Ticket> tickets = ticketCRUDOperations.findTicketsCreatedByStatus(ticketStatusName);
+        System.out.print("tickets ID\t tickets name\ttickets status\ttickets priority");
+        System.out.println();
+        for (Ticket ticket : tickets) {
+            ticketCount++;
+            System.out.print(ticket.getTicketID() + "\t" + ticket.getTicketName() + "\t" + ticket.getTicketStatus() + "\t" + ticket.getPriorityLevel() + "\n");
+            System.out.println();
+
+        }
+        System.out.println("There are: " + ticketCount + " open tickets");
+        System.out.println();
+    }
+
+        public void displayResolvedTickets(){
+             int ticketCount=0;
+             String ticketStatusName = "resolved";
+             List<Ticket> tickets = ticketCRUDOperations.findTicketsCreatedByStatus(ticketStatusName);
+            System.out.print("tickets ID\t tickets name\ttickets status\t\t\t\t\t\t\t\ttickets priority");
+            System.out.println();
+            for(Ticket ticket:tickets){
+                ticketCount++;
+                System.out.print(ticket.getTicketID()+"\t\t\t"+ticket.getTicketName()+"\t\t"+ticket.getTicketStatus()+"\t\t"+ticket.getPriorityLevel()+"\n");
+                System.out.println();
+
+            }
+            System.out.println("There are: "+ticketCount+" resolved tickets");
 
 
     }
     public void AssignTicketsToAgent(){
         Boolean operate = true;
         while (operate){
-            System.out.println("CREATED TICKETS");
-            displayTickets();
+            System.out.println("OPEN TICKETS");
+            displayOpenTickets();
             System.out.println("Fill in the ticket ID of the ticket to assign or CANCEL to quit: ");
             String ticketToAssignIdInput = scanner.nextLine();
+            if (ticketToAssignIdInput.equalsIgnoreCase("cancel")){
+                operate =false;
+                break;
+            }
 
 
             System.out.println("fill in the email of the agent to assign this ticket:");
