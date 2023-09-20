@@ -11,7 +11,7 @@
         <!-- Database connection settings -->
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ticketing_system"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/boot"/>
             <property name="jakarta.persistence.jdbc.user" value="develhope"/>
             <property name="jakarta.persistence.jdbc.password" value="Welcome@123"/>
 
