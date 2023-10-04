@@ -1,8 +1,9 @@
-package LiveCodingSessions.Sept11.demo.controller;
+package LiveCodingSessions.Oct2nd.EntityAssociations.controller;
 
 
-import LiveCodingSessions.Sept11.demo.model.Item;
-import LiveCodingSessions.Sept11.demo.service.ItemServiceImpl;
+import LiveCodingSessions.Oct2nd.EntityAssociations.model.Category;
+import LiveCodingSessions.Oct2nd.EntityAssociations.model.Item;
+import LiveCodingSessions.Oct2nd.EntityAssociations.service.ItemServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,22 @@ public class ItemController {
         catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllCategories(){
+        return ResponseEntity.ok(itemService.getAllCategories());
+    }
+
+    @GetMapping("/get/item/byCategoryId/{id}")
+    public ResponseEntity<?> getItemByCategoryId(@PathVariable("id") Integer id){
+
+       return ResponseEntity.ok(itemService.getItemsByCategoryId(id));
+    }
+
+    @PostMapping("/create/category")
+    public ResponseEntity<?> createCategory(@RequestBody Category category){
+        return ResponseEntity.ok(itemService.createCategory(category));
     }
 }
 /*

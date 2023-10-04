@@ -1,8 +1,11 @@
-package LiveCodingSessions.Sept11.demo.service;
+package LiveCodingSessions.Oct2nd.EntityAssociations.service;
 
 
-import LiveCodingSessions.Sept11.demo.model.Item;
-import LiveCodingSessions.Sept11.demo.repository.ItemRepository;
+import LiveCodingSessions.Oct2nd.EntityAssociations.dto.ItemDto;
+import LiveCodingSessions.Oct2nd.EntityAssociations.model.Category;
+import LiveCodingSessions.Oct2nd.EntityAssociations.model.Item;
+import LiveCodingSessions.Oct2nd.EntityAssociations.repository.CategoryRepository;
+import LiveCodingSessions.Oct2nd.EntityAssociations.repository.ItemRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +13,12 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
     ItemRepository itemRepository;
+    CategoryRepository categoryRepository;
 
     Timestamp currentTimestamp = Timestamp.from(Instant.now());
     String pattern = "yyyy-MM-dd HH:mm:ss";
@@ -23,8 +28,9 @@ public class ItemServiceImpl implements ItemService {
     Timestamp currentTimestampFormatted = Timestamp.valueOf(formattedTimestamp);
 
     @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository, CategoryRepository categoryRepository) {
         this.itemRepository = itemRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     private ModelMapper modelMapper;
@@ -76,6 +82,32 @@ public class ItemServiceImpl implements ItemService {
         }
         return null;
     }
+
+    @Override
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Item> getItemsByCategoryId(Integer categoryId) {
+        return itemRepository.findByCategory_CategoryId(categoryId);
+    }
+
+    @Override
+    public Item convertToEntity(ItemDto itemDto) {
+        return modelMapper.map(itemDto, Item.class);
+    }
+
+    @Override
+    public ItemDto convertToDto(Item item) {
+        return modelMapper.map(item, ItemDto.class);
+    }
+
 }
 /*
 @Service

@@ -1,6 +1,6 @@
-package LiveCodingSessions.Sept11.demo.repository;
+package LiveCodingSessions.Oct2nd.EntityAssociations.repository;
 
-import LiveCodingSessions.Sept11.demo.model.Item;
+import LiveCodingSessions.Oct2nd.EntityAssociations.model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

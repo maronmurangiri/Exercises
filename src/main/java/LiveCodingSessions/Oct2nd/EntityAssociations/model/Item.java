@@ -1,4 +1,4 @@
-package LiveCodingSessions.Sept11.demo.model;
+package LiveCodingSessions.Oct2nd.EntityAssociations.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -16,6 +16,10 @@ public class Item{
     private String itemName;
     private String description;
     private Integer quantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId")
+    private Category category;
     String createdBy;
     Timestamp createdOn;
     String updatedBy;
